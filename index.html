@@ -371,7 +371,7 @@ h2{font-size:clamp(1.35rem,4vw,1.65rem); font-weight:700; letter-spacing:-.02em;
 const CFG = {
   judul:'Company Check-Up Questionnaire',
   perusahaan:'Incendio Consultant',
-  versi:'v 0.1',
+  versi:'v1.0',
   durasi:'±15 Menit',
   perHalaman:10,
   skala:['Sangat Tidak Setuju','Tidak Setuju','Setuju','Sangat Setuju'],
@@ -726,8 +726,9 @@ const layar = {
           <span class="chip">${TERBUKA.length} Pertanyaan Terbuka</span>
           <span class="chip">${CFG.durasi}</span>
         </div>
+        <div class="actions left"><button class="btn" data-go="diri">Mulai Mengisi</button></div>
         <div class="about-card">
-          <div class="about-head">Tentang Incendio</div>
+          <div class="about-head">About Incendio</div>
           <p class="about-text">${TENTANG_INCENDIO}</p>
           <div class="contact-links">
             <a class="contact-link" href="${CFG.websiteUrl}" target="_blank" rel="noopener" aria-label="Website Incendio" title="Website">
@@ -741,7 +742,6 @@ const layar = {
             </a>
           </div>
         </div>
-        <div class="actions left"><button class="btn" data-go="diri">Mulai Mengisi</button></div>
       </div>`;
   },
 
@@ -781,7 +781,7 @@ const layar = {
           </div>`).join('')}
         <label class="gate">
           <input type="checkbox" id="isLeader"${S.role==='leader'?' checked':''}>
-          <span>Saya adalah Business Owner / Leader di perusahaan ini.</span>
+          <span>Saya adalah Business Owner di perusahaan ini.</span>
         </label>
         <div class="alert" id="alert" hidden></div>
         <div class="actions"><button class="btn" id="btnGoPetunjuk" data-go="petunjuk">Lanjut</button></div>
