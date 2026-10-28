@@ -167,13 +167,6 @@ main{flex:1 0 auto; display:flex; padding:5.5rem 1.25rem 3.5rem}
 .contact-link svg{width:19px; height:19px; fill:currentColor}
 .contact-link:hover{background:var(--brand); color:#fff; transform:translateY(-1px)}
 
-/* ============================================================
-   POLA LATAR (diagonal)
-   ============================================================ */
-#patternBg{
-  position:fixed; inset:0; z-index:-2; pointer-events:none;
-  background-image:repeating-linear-gradient(135deg, rgba(242,103,58,.07) 0 1px, transparent 1px 18px);
-}
 
 /* ============================================================
    TIPOGRAFI
@@ -249,6 +242,7 @@ h2{font-size:clamp(1.35rem,4vw,1.65rem); font-weight:700; letter-spacing:-.02em;
 .gate:has(input:checked){border-color:var(--brand); background:var(--brand-tint)}
 .gate input{width:22px; height:22px; margin-top:.1rem; accent-color:var(--brand); flex:0 0 auto; cursor:pointer}
 .gate span{font-size:.94rem; font-weight:600}
+.gate .gate-note{display:block; margin-top:.35rem; font-size:.86rem; font-weight:400; line-height:1.55; color:var(--ink-soft)}
 
 /* ============================================================
    CONTOH PENGISIAN
@@ -371,7 +365,7 @@ h2{font-size:clamp(1.35rem,4vw,1.65rem); font-weight:700; letter-spacing:-.02em;
 </head>
 <body>
 
-<div id="patternBg"></div>
+
 <div id="heroBg"></div>
 
 <header class="topbar" id="topbar">
@@ -400,7 +394,7 @@ const CFG = {
   judul:'Company Check-Up Questionnaire',
   perusahaan:'Incendio Consultant',
   versi:'v1.0',
-  durasi:'±15 Menit',
+  durasi:'±20 Menit',
   perHalaman:10,
   skala:['Sangat Tidak Setuju','Tidak Setuju','Setuju','Sangat Setuju'],
   /* Isi dengan URL Web App Apps Script setelah kamu deploy (lihat panduan deploy).
@@ -484,7 +478,7 @@ function langkahAktif(){
   return l;
 }
 
-/* 69 item dari Company_Check_Up_Guidelines.xlsx — sheet Psychological Scales v2.0 */
+/* 73 item dari Company_Check_Up_Guidelines.xlsx — sheet Psychological Scales v2.0 */
 const ITEM = [
   { no:1, c3:"Clarity", aspek:"External Environment", dim:"Market Competitiveness", jenis:"Favorable",
     item:"Saya merasa perusahaan ini dapat bersaing dengan para kompetitornya." },
@@ -604,30 +598,38 @@ const ITEM = [
     item:"Saya merasa lelah karena waktu yang tersedia tidak cukup untuk menyelesaikan pekerjaan saya." },
   { no:59, c3:"Culture", aspek:"Affective Strain", dim:"Burnout Perception", jenis:"Unfavorable",
     item:"Saya merasa bosan karena pekerjaan yang saya lakukan terasa monoton." },
-  { no:60, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Active Participation", jenis:"Favorable",
+  { no:60, c3:"Culture", aspek:"Affective Strain", dim:"Office Politics", jenis:"Unfavorable",
+    item:"Saya merasa ada permainan politik dalam beberapa keputusan perusahaan." },
+  { no:61, c3:"Culture", aspek:"Affective Strain", dim:"", jenis:"Unfavorable",
+    item:"Orang yang memiliki hubungan dekat dengan atasan lebih mudah mendapatkan promosi dan kesempatan." },
+  { no:62, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Active Participation", jenis:"Favorable",
     item:"Saya berinisiatif memberi masukan meski tidak diminta." },
-  { no:61, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"", jenis:"Favorable",
-    item:"Saya aktif menyampaikan ide dalam diskusi tim." },
-  { no:62, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Work Diligence", jenis:"Favorable",
-    item:"Saya berusaha memberikan hasil terbaik dalam setiap tugas yang saya kerjakan." },
   { no:63, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"", jenis:"Favorable",
+    item:"Saya aktif menyampaikan ide dalam diskusi tim." },
+  { no:64, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Work Diligence", jenis:"Favorable",
+    item:"Saya berusaha memberikan hasil terbaik dalam setiap tugas yang saya kerjakan." },
+  { no:65, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"", jenis:"Favorable",
     item:"Saya jarang menunda pekerjaan yang menjadi tanggung jawab saya." },
-  { no:64, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Psychological Ownership", jenis:"Favorable",
+  { no:66, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Psychological Ownership", jenis:"Favorable",
     item:"Saya peduli terhadap keberhasilan perusahaan seolah-olah keberhasilan tersebut juga merupakan keberhasilan saya." },
-  { no:65, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Absorption", jenis:"Favorable",
+  { no:67, c3:"Culture", aspek:"Positive Behavioral Engagement", dim:"Absorption", jenis:"Favorable",
     item:"Saya dapat berkonsentrasi penuh ketika mengerjakan pekerjaan saya." },
-  { no:66, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"Minimal Compliance", jenis:"Unfavorable",
+  { no:68, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"Minimal Compliance", jenis:"Unfavorable",
     item:"Saya bekerja seperlunya tanpa berusaha memberikan hasil lebih." },
-  { no:67, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"", jenis:"Unfavorable",
-    item:"Saya mengerjakan tugas hanya sebatas yang diwajibkan saja." },
-  { no:68, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"Employee Silence", jenis:"Unfavorable",
-    item:"Saya memilih diam meskipun saya punya ide untuk disampaikan." },
   { no:69, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"", jenis:"Unfavorable",
+    item:"Saya mengerjakan tugas hanya sebatas yang diwajibkan saja." },
+  { no:70, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"Employee Silence", jenis:"Unfavorable",
+    item:"Saya memilih diam meskipun saya punya ide untuk disampaikan." },
+  { no:71, c3:"Culture", aspek:"Behavioral Withdrawal", dim:"", jenis:"Unfavorable",
     item:"Ada kalanya saya menahan diri untuk tidak menyuarakan pendapat dalam diskusi tim." },
+  { no:72, c3:"Culture", aspek:"Behavioral Outcomes", dim:"Advocacy", jenis:"Favorable",
+    item:"Saya merekomendasikan perusahaan ini sebagai tempat kerja yang menarik kepada orang lain." },
+  { no:73, c3:"Culture", aspek:"Behavioral Outcomes", dim:"Loyalty", jenis:"Favorable",
+    item:"Saya ingin tetap bekerja di perusahaan ini dalam beberapa tahun ke depan." },
 ];
 
 /* Jumlah item tiap kelompok 3C — dipakai untuk memecah halaman. */
-const KELOMPOK = [18, 20, 31];
+const KELOMPOK = [18, 20, 35];
 
 const TERBUKA = [
   "Dari mana Anda mengetahui perusahaan ini?",
@@ -809,7 +811,8 @@ const layar = {
           </div>`).join('')}
         <label class="gate">
           <input type="checkbox" id="isLeader"${S.role==='leader'?' checked':''}>
-          <span>Saya adalah Business Owner di perusahaan ini.</span>
+          <span>Saya adalah Business Owner di perusahaan ini.
+            <small class="gate-note">Jika Anda mengisi sebagai Business Owner, Anda juga akan diminta melakukan <em>document checking</em>, yaitu memeriksa dokumen apa saja yang sudah dimiliki perusahaan.</small></span>
         </label>
         <div class="alert" id="alert" hidden></div>
         <div class="actions"><button class="btn" id="btnGoPetunjuk" data-go="petunjuk">Lanjut</button></div>
